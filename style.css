@@ -241,7 +241,11 @@ body {
 /* SOBRE */
 .about {
   grid-column: span 2;
-  margin-top:50px;
+  margin-top: 50px;
+  align-self: stretch; /* faz ele ocupar toda a altura disponível */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .about h1 {
