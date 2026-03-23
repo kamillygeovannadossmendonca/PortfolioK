@@ -117,13 +117,22 @@ window.addEventListener("load", () => {
 
   if (!toggle) return;
 
-  toggle.addEventListener("change", () => {
-    document.body.classList.toggle("light");
+  // 🔥 1. Carregar preferência salva
+  const savedTheme = localStorage.getItem("theme");
 
+  if (savedTheme === "light") {
+    document.body.classList.add("light");
+    toggle.checked = true;
+  }
+
+  // 🔥 2. Quando mudar o botão
+  toggle.addEventListener("change", () => {
     if (toggle.checked) {
       document.body.classList.add("light");
+      localStorage.setItem("theme", "light");
     } else {
       document.body.classList.remove("light");
+      localStorage.setItem("theme", "dark");
     }
   });
 });
@@ -143,26 +152,24 @@ function revealAdvanced() {
 
 window.addEventListener("scroll", revealAdvanced);
 window.addEventListener("load", revealAdvanced);
-// ================= CURSOR =================
-const cursor = document.querySelector(".cursor");
-
-document.addEventListener("mousemove", e => {
-  cursor.style.left = e.clientX + "px";
-  cursor.style.top = e.clientY + "px";
-});
 // ================= PARALLAX =================
 window.addEventListener("scroll", () => {
   const scroll = window.scrollY;
   document.body.style.backgroundPositionY = scroll * 0.5 + "px";
 });
-window.addEventListener("load", () => {
-  document.getElementById("loader").style.display = "none";
-});
-window.addEventListener("load", () => {
-  setTimeout(() => {
-    const intro = document.getElementById("intro");
-    if (intro) intro.remove();
-  }, 2500);
+window.addEventListener("load", ()=>{
+  const intro = document.getElementById("intro");
+  const loader = document.querySelector(".loader");
+
+  setTimeout(()=>{
+    loader.style.transform = "scale(1.2)";
+    loader.style.opacity = "0";
+    loader.style.transition = "0.6s ease";
+  },1400);
+
+  setTimeout(()=>{
+    intro.classList.add("hide");
+  },2000);
 });
 
 const btnTop = document.getElementById("backToTop");
@@ -201,3 +208,14 @@ fechar.onclick = () => {
 modal.onclick = () => {
   modal.style.display = "none";
 };
+document.addEventListener("click", e=>{
+  const wave = document.createElement("div");
+  wave.classList.add("click-wave");
+
+  wave.style.left = e.clientX + "px";
+  wave.style.top = e.clientY + "px";
+
+  document.body.appendChild(wave);
+
+  setTimeout(()=>wave.remove(),600);
+});
