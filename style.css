@@ -192,7 +192,7 @@ body {
 }
 
 /* CARDS */
-  .card {
+.card {
   min-width: 240px;
   background: rgba(255,255,255,0.06);
   border-radius: 25px;
@@ -203,11 +203,8 @@ body {
   transition: 0.4s;
   cursor: default;
   transform-style: preserve-3d;
-
-  /* 👇 ESSENCIAL */
-  margin: 0;
+  margin:40px;
 }
-
 .card::after {
   content: "";
   position: absolute;
@@ -244,7 +241,6 @@ body {
 /* SOBRE */
 .about {
   grid-column: span 2;
-  margin-top: 50px;
 }
 
 .about h1 {
