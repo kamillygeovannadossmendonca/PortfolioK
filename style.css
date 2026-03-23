@@ -241,7 +241,8 @@ body {
 /* SOBRE */
 .about {
   grid-column: span 2;
-  margin-top: auto; /* 👈 empurra ele pra baixo */
+  margin-top: 50px;
+  align-self: end;
 }
 
 .about h1 {
