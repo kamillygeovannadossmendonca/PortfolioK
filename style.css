@@ -241,6 +241,7 @@ body {
 /* SOBRE */
 .about {
   grid-column: span 2;
+  margin-top:50px;
 }
 
 .about h1 {
