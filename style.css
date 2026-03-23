@@ -240,6 +240,7 @@ body {
 
 /* SOBRE */
 .about {
+  position:relative;
   grid-column: span 2;
   grid-row: span 2; /* 👈 faz ele ter a mesma altura do profile */
   margin-top: 0;    /* 👈 remove esse empurrão que tava quebrando o alinhamento */
