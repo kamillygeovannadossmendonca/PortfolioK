@@ -602,44 +602,6 @@ body {
 body.light {
   background: radial-gradient(circle at top, #ffe3f3, #fff6f6);
 }
-.cursor {
-  width: 15px;
-  height: 15px;
-  background: #ff00cc;
-  border-radius: 50%;
-  position: fixed;
-  pointer-events: none;
-  transform: translate(-50%, -50%);
-  z-index: 9999;
-}
-#loader {
-  position: fixed;
-  width: 100%;
-  height: 100%;
-  background: #000;
-  color: #fff;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 9999;
-}
-
-/* TELA DE ENTRADA */
-#intro {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: #000;
-  color: #fff;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 32px;
-  z-index: 99999;
-  animation: fadeOut 2.5s ease forwards;
-}
 
 /* ANIMAÇÃO */
 @keyframes fadeOut {
@@ -668,7 +630,69 @@ body.light {
     opacity: 1;
   }
 }
+/* TELA DE ENTRADA */
+#intro{
+  position:fixed;
+  inset:0;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  z-index:99999;
 
+  background:radial-gradient(circle at center, #0d0d0d, #000);
+  transition:1s ease;
+}
+
+/* modo claro */
+body.light #intro{
+  background:radial-gradient(circle at center, #ffe3f3, #fff6f6);
+}
+
+/* LOADER */
+.loader{
+  width:80px;
+  height:80px;
+  border-radius:50%;
+  position:relative;
+}
+
+/* anel girando */
+.loader::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  border-radius:50%;
+
+  border:3px solid transparent;
+  border-top:3px solid #ff00cc;
+  border-right:3px solid #ff4da6;
+
+  animation:spin 1.2s linear infinite;
+
+  filter:drop-shadow(0 0 10px #ff00cc);
+}
+
+/* glow interno */
+.loader::after{
+  content:"";
+  position:absolute;
+  inset:12px;
+  border-radius:50%;
+
+  background:radial-gradient(circle, rgba(255,0,128,0.4), transparent 70%);
+  filter:blur(10px);
+}
+
+/* animação */
+@keyframes spin{
+  to{ transform:rotate(360deg); }
+}
+
+/* saída suave */
+#intro.hide{
+  opacity:0;
+  visibility:hidden;
+}
 /* ================= CORREÇÃO DOS LINKS ================= */
 
 .tags {
@@ -817,26 +841,91 @@ body.light .footer-box.pink {
   bottom: 30px;
   right: 30px;
 
-  width: 55px;
-  height: 55px;
+  width: 60px;
+  height: 60px;
 
   border: none;
   border-radius: 50%;
 
-  background: linear-gradient(135deg, #ff00cc, #ff4da6);
+  display: none;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 22px;
   color: white;
 
-  font-size: 20px;
   cursor: pointer;
-
-  display: none;
   z-index: 9999;
 
-  box-shadow:
-    0 0 15px rgba(255, 0, 128, 0.6),
-    0 0 30px rgba(255, 0, 128, 0.4);
+  /* 💎 vidro */
+  background: rgba(255, 0, 204, 0.15);
+  backdrop-filter: blur(12px);
 
-  transition: all 0.3s ease;
+  /* 💖 glow suave */
+  box-shadow:
+    0 0 15px rgba(255, 0, 204, 0.4),
+    0 0 30px rgba(255, 0, 204, 0.2),
+    inset 0 0 10px rgba(255,255,255,0.1);
+
+  transition: all 0.4s ease;
+}
+
+/* ✨ brilho passando */
+#backToTop::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+
+  background: linear-gradient(
+    120deg,
+    transparent,
+    rgba(255,255,255,0.5),
+    transparent
+  );
+
+  opacity: 0;
+  transition: 0.4s;
+}
+
+/* 💥 hover */
+#backToTop:hover {
+  transform: scale(1.2) translateY(-6px);
+
+  box-shadow:
+    0 0 25px rgba(255, 0, 204, 0.7),
+    0 0 50px rgba(255, 0, 204, 0.4),
+    0 0 80px rgba(255, 0, 204, 0.3);
+}
+
+/* brilho aparece */
+#backToTop:hover::before {
+  opacity: 1;
+}
+
+/* 👇 clique */
+#backToTop:active {
+  transform: scale(0.9);
+}
+
+/* 💓 animação respirando */
+#backToTop {
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    box-shadow:
+      0 0 10px rgba(255,0,204,0.3);
+  }
+  50% {
+    box-shadow:
+      0 0 30px rgba(255,0,204,0.7);
+  }
+  100% {
+    box-shadow:
+      0 0 10px rgba(255,0,204,0.3);
+  }
 }
 
 /* brilho animado */
@@ -967,4 +1056,36 @@ body.light .footer-box.pink {
   color: white;
   font-size: 30px;
   cursor: pointer;
+}
+.click-wave{
+  position:fixed;
+  border-radius:50%;
+  transform:translate(-50%,-50%);
+  pointer-events:none;
+
+  background: radial-gradient(circle,
+    rgba(255,0,204,0.25) 0%,
+    rgba(255,0,204,0.15) 40%,
+    transparent 70%
+  );
+
+  border:1.5px solid rgba(255,0,204,0.4);
+
+  animation:wave 0.8s ease-out;
+  z-index:9999;
+
+  backdrop-filter: blur(4px);
+}
+
+@keyframes wave{
+  from{
+    width:0;
+    height:0;
+    opacity:0.9;
+  }
+  to{
+    width:260px;
+    height:260px;
+    opacity:0;
+  }
 }
